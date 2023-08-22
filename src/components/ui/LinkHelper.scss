@@ -1,0 +1,27 @@
+@import "../../App.scss";
+
+.linkhelper {
+  text-decoration: none;
+  font-size: 80%;
+  display: inline-block;
+  background-color: $primary__blue;
+  padding: 0.8rem 2rem;
+  border-radius: 0.4rem;
+  color: $primary__white;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in;
+
+  &:hover,
+  &:focus {
+    border: 1px solid $secondary__black;
+    background-color: $secondary__white;
+    color: $primary__black;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .linkhelper {
+    font-size: 80%;
+  }
+}

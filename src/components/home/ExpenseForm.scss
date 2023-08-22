@@ -1,0 +1,101 @@
+@import "../../App.scss";
+
+.expenseform {
+  font-size: 2rem;
+  width: 50%;
+  border-radius: 10px;
+  height: 50vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__row1 {
+    display: flex;
+    width: 80%;
+
+    > :first-child {
+      margin-right: 2rem;
+      width: 70%;
+    }
+  }
+
+  &__input {
+    text-align: center;
+    padding: 1.3rem 3rem;
+    height: 5vh;
+    border-radius: 0.2rem;
+    outline: none;
+    font-size: 1.5rem;
+    border: 1px solid $secondary__black;
+  }
+
+  &__selectors {
+    *:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+
+  &__select {
+    padding: 1.3rem 3rem;
+
+    > option {
+      font-size: 1.5rem;
+      border-radius: 0.2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .expenseform {
+    width: 40%;
+    font-size: 1.5rem;
+    height: 55vh;
+    padding: 1.5rem;
+
+    &__row1 {
+      width: 90%;
+
+      > :first-child {
+        margin-right: 1rem;
+        width: 60%;
+      }
+    }
+
+    &__input {
+      padding: 1.3rem 1rem;
+      height: 6vh;
+      font-size: 1.2rem;
+    }
+
+    &__selectors {
+      width: 90%;
+      > * {
+        display: block;
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+
+    &__select {
+      padding: 1.3rem 3rem;
+
+      > option {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .expenseform {
+    width: 90%;
+    font-size: 1.5rem;
+    margin-bottom: 4rem;
+  }
+}

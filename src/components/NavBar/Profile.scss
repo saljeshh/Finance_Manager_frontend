@@ -1,0 +1,9 @@
+.nav__pic {
+  width: 30px;
+}
+
+@media only screen and (max-width: 426px) {
+  .nav__pic {
+    width: 2.4rem;
+  }
+}

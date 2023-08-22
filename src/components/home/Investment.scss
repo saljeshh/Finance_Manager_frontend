@@ -1,0 +1,72 @@
+@import "../../App.scss";
+
+.investment {
+  font-size: 1.3rem;
+  padding: 2rem;
+  width: 30%;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__lower,
+  &__upper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__input {
+    padding: 0 0.5rem;
+    width: 6rem;
+    outline: none;
+    border: 1px solid $secondary__white;
+    cursor: pointer;
+  }
+
+  &__box {
+    width: 45%;
+    text-align: center;
+    padding: 0.7rem 4rem;
+
+    > *:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    > p {
+      color: $green;
+      font-weight: bold;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .investment {
+    font-size: 1rem;
+    padding: 1.2rem;
+    height: 13rem;
+
+    &__input {
+      font-size: 0.9rem;
+      padding: 0;
+      width: 6rem;
+    }
+
+    &__box {
+      padding: 0.7rem 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .investment {
+    font-size: 1rem;
+    padding: 2rem;
+    width: 90%;
+    height: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+}

@@ -1,0 +1,78 @@
+@import "../../App.scss";
+
+.register {
+  //margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.5rem;
+  width: 60%;
+
+  &__redirect {
+    color: $primary__blue;
+  }
+
+  &__reg {
+    width: 100%;
+    min-height: 60vh;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    > p {
+      margin-top: 2rem;
+    }
+  }
+
+  &__wrapper {
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .left {
+    width: 50%;
+    > * {
+      margin-top: 2rem;
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 50%;
+    > * {
+      margin-top: 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .register {
+    width: 80%;
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 428px) {
+  .register {
+    width: 90%;
+    font-size: 1rem;
+
+    &__reg {
+      padding: 0.5rem;
+    }
+
+    &__wrapper {
+      max-width: 95%;
+      font-size: 0.7rem;
+    }
+  }
+}

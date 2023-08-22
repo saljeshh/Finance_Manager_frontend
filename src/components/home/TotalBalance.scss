@@ -1,0 +1,87 @@
+@import "../../App.scss";
+
+.totalbalance {
+  font-size: 1.3rem;
+  padding: 2rem;
+  width: 30%;
+  height: 18rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &__left {
+    width: 50%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 12rem;
+    }
+  }
+
+  &__box {
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem 4rem;
+
+    > *:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    > p {
+      color: $green;
+      font-weight: bold;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .totalbalance {
+    font-size: 1rem;
+    padding: 1.2rem;
+    height: 13rem;
+
+    &__right{
+      img{
+        width: 8rem;
+      }
+    }
+
+    &__input {
+      font-size: 0.9rem;
+      padding: 0;
+      width: 6rem;
+    }
+
+    &__box {
+      padding: 0.7rem 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .totalbalance {
+    font-size: 1rem;
+    padding: 2rem;
+    width: 90%;
+    height: 12rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    &__right {
+      img {
+        width: 8rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+@import "../../App.scss";
+
+.landing {
+  &__content {
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2rem;
+  }
+
+  &__hero {
+    margin-bottom: 4rem;
+    padding: 5rem 3rem;
+
+    h1 {
+      font-family: "Courier New", Courier, monospace;
+      > p {
+        display: inline;
+        color: $red;
+      }
+    }
+
+    > p {
+      font-weight: bold;
+      color: $primary__black;
+    }
+
+    > h2 {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    > *:not(:last-child) {
+      margin-bottom: 3.5rem;
+    }
+  }
+
+  &__right {
+    width: 30%;
+
+    > img {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .landing {
+    &__content {
+      max-width: 750px;
+      font-size: 1.2rem;
+      //flex-direction: column;
+    }
+
+    &__hero {
+      margin-bottom: 4rem;
+      padding: 3rem 4rem;
+
+      > *:not(:last-child) {
+        margin-bottom: 2.2rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .landing {
+    &__content {
+      height: 70vh;
+      width: 90%;
+      font-size: 0.8rem;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    &__left {
+      order: 2;
+    }
+
+    &__right {
+      width: 100%;
+      order: 1;
+      text-align: center;
+      margin-bottom: 4rem;
+      > img {
+        width: 18rem;
+      }
+    }
+
+    &__hero {
+      margin-bottom: 2rem;
+      padding: 3rem 4rem;
+
+      > *:not(:last-child) {
+        margin-bottom: 2.2rem;
+      }
+    }
+  }
+}

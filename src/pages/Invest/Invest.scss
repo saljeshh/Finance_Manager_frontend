@@ -1,0 +1,135 @@
+@import "../../App.scss";
+
+.invest {
+  //margin-top: 4rem;
+  width: 100%;
+  font-size: 1.5rem;
+
+  &__inv {
+    height: 100%;
+    width: 100%;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 3rem 0;
+    margin-bottom: 4rem;
+  }
+
+  &__middle {
+    display: flex;
+    margin-bottom: 4rem;
+  }
+
+  &__select {
+    border-radius: 1rem;
+    outline: none;
+    padding: 1rem 2rem;
+    border: 1px solid $secondary__white;
+    margin-right: 4rem;
+  }
+
+  &__box {
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+
+    > :first-child {
+      margin-bottom: 0.6rem;
+      font-weight: bold;
+    }
+
+    > :last-child {
+      color: $green;
+    }
+  }
+
+  &__tablecontainer {
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+
+  &__table {
+    th {
+      text-align: center;
+      padding: 1rem 3rem;
+    }
+    td {
+      padding: 1rem 0;
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .invest {
+    font-size: 1.2rem;
+
+    &__inv {
+      max-width: 750px;
+    }
+
+    &__title {
+      font-size: 1.3rem;
+    }
+
+    &__tablecontainer {
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+
+    &__table {
+      th {
+        text-align: center;
+        padding: 1rem 2rem;
+      }
+      td {
+        padding: 1rem 0;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .invest {
+    font-size: 1rem;
+
+    &__select {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    &__box {
+      padding: 0.5rem 0.5rem;
+      border-radius: 1rem;
+    }
+
+    &__tablecontainer {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    &__inv {
+      max-width: 380px;
+      min-width: 320px;
+    }
+
+    &__title {
+      font-size: 1rem;
+    }
+
+    &__table {
+      th {
+        padding: 0.5rem 0.6rem;
+      }
+      td {
+        padding: 1rem 0;
+      }
+    }
+  }
+}

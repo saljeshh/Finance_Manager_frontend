@@ -1,0 +1,70 @@
+@import "../../App.scss";
+
+.expenserecord {
+  font-size: 2rem;
+  width: 45%;
+  border-radius: 10px;
+  height: 50vh;
+  padding: 4rem 2rem;
+  overflow-y: scroll;
+
+  // &__records {
+  //   padding: 2rem 0.5rem;
+  // }
+
+  &__title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 3rem;
+  }
+
+  &__filters {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    z-index: 300;
+    top: -2rem;
+    position: sticky;
+    background-color: white;
+    box-shadow: 1px 1px 9px 1px $secondary__white;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .expenserecord {
+    font-size: 1.3rem;
+    width: 58%;
+    height: 55vh;
+    padding: 1.5rem;
+
+    &__title {
+      margin-bottom: 3rem;
+      font-size: 1.8rem;
+    }
+
+    &__filters {
+      padding: 1.3rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .expenserecord {
+    margin-bottom: 10rem;
+    font-size: 1rem;
+    width: 90%;
+    height: 55vh;
+    padding: 1.5rem;
+
+    &__title {
+      margin-bottom: 3rem;
+      font-size: 1.8rem;
+    }
+
+    &__filters {
+      padding: 1.3rem;
+    }
+  }
+}

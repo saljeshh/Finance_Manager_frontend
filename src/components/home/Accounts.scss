@@ -1,0 +1,58 @@
+@import "../../App.scss";
+
+.accounts {
+  font-size: 1.3rem;
+  padding: 2rem;
+  width: 30%;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  &__lower,
+  &__upper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__box {
+    width: 45%;
+    text-align: center;
+    padding: 0.7rem 4rem;
+
+    > *:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    > p {
+      color: $green;
+      font-weight: bold;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .accounts {
+    font-size: 1rem;
+    padding: 1.2rem;
+    height: 13rem;
+
+    &__box {
+      padding: 0.7rem 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .accounts {
+    font-size: 1rem;
+    padding: 2rem;
+    width: 90%;
+    height: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

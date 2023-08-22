@@ -1,0 +1,11 @@
+$primary__white: #fff;
+$secondary__white: #e5e7eb;
+$primary__black: #000000;
+$secondary__black: #212121;
+$green: rgb(6, 143, 6);
+$primary__blue: #12109e;
+$red: rgb(172, 47, 47);
+
+.boxshadow {
+  box-shadow: 1px 1px 9px 1px $secondary__white;
+}

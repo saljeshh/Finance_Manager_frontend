@@ -1,0 +1,26 @@
+@import "../App.scss";
+
+.footer {
+  // hack is margin top auto
+  //margin-top: auto;
+  height: 5rem;
+  z-index: 10000;
+  width: 100%;
+  background-color: $primary__black;
+  color: $primary__white;
+  font-size: 1.4rem;
+
+  &__foot {
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .footer {
+    font-size: 0.7rem;
+  }
+}
