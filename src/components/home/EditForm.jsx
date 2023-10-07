@@ -3,16 +3,36 @@ import Button from "../ui/Button";
 import "./ExpenseForm.scss";
 import { useAxios } from "../../hooks/useAxios";
 
-const ExpenseForm = () => {
+const EditForm = ({ binding, cancelHandler }) => {
+  const axios = useAxios();
   // for form data
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [account, setAccount] = useState("");
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
-  const axios = useAxios();
 
-  const submitHandler = (event) => {
+  const amountChangeHandler = (e) => {
+    setAmount(e.target.value);
+  };
+
+  const dateChangeHandler = (e) => {
+    setDate(e.target.value);
+  };
+
+  const accountChangeHandler = (e) => {
+    setAccount(e.target.value);
+  };
+
+  const typeChangeHandler = (e) => {
+    setType(e.target.value);
+  };
+
+  const categoryChangeHandler = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const edithandler = (event) => {
     event.preventDefault();
 
     const data = {
@@ -20,37 +40,36 @@ const ExpenseForm = () => {
       account_type: account,
       amount: amount,
       category: category,
-      timestamp: new Date(date),
+      timestamp: new Date(date).toISOString(),
     };
+    // console.log("data", data);
 
     axios
-      .post("/api/transactions", data)
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
-
-    setAccount("");
-    setType("");
-    setCategory("");
-    setDate("");
-    setAmount("");
+      .put(`/api/transactions/${binding.id}`, data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
-    <form onSubmit={submitHandler} className="boxshadow expenseform">
-      <p className="expenseform__title">Income/Expense Tracking</p>
+    <form onSubmit={edithandler} className="boxshadow expenseform">
+      <p className="expenseform__title">Edit Record</p>
       <div className="expenseform__row1">
         <input
           type="text"
           className="expenseform__input"
           placeholder="Enter amount.."
-          onChange={(e) => setAmount(e.target.value)}
           required
+          onChange={amountChangeHandler}
         />
         <input
           type="date"
           className="expenseform__input"
           placeholder="Enter date.."
-          onChange={(e) => setDate(e.target.value)}
+          onChange={dateChangeHandler}
           required
         />
       </div>
@@ -58,11 +77,10 @@ const ExpenseForm = () => {
       <section className="expenseform__selectors">
         {/* cash or bank */}
         <select
-          name="account"
-          id="account"
+          name="type"
+          id="type"
           className="expenseform__select"
-          onClick={(e) => setAccount(e.target.value)}
-          defaultValue="cash"
+          onChange={accountChangeHandler}
         >
           <option value="cash">Cash</option>
           <option value="bank">Bank</option>
@@ -73,11 +91,10 @@ const ExpenseForm = () => {
           name="type"
           id="type"
           className="expenseform__select"
-          onClick={(e) => setType(e.target.value)}
-          defaultValue="income"
+          onChange={typeChangeHandler}
         >
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
+          <option value="Income">Income</option>
+          <option value="Expense">Expense</option>
         </select>
 
         {/* category acc to income/expnese */}
@@ -86,7 +103,7 @@ const ExpenseForm = () => {
             name="income"
             id="income"
             className="expenseform__select"
-            onClick={(e) => setCategory(e.target.value)}
+            onChange={categoryChangeHandler}
           >
             <option value="Salary">Salary</option>
             <option value="Pocket Money">Pocket Money</option>
@@ -101,7 +118,7 @@ const ExpenseForm = () => {
             name="expense"
             id="expense"
             className="expenseform__select"
-            onClick={(e) => setCategory(e.target.value)}
+            onChange={categoryChangeHandler}
             required
           >
             <option value="Food and Cafe">Food and Cafe</option>
@@ -116,9 +133,12 @@ const ExpenseForm = () => {
         )}
       </section>
 
-      <Button type="submit" text="Add Record" />
+      <div className="expenseform__buttons">
+        <Button type="submit" text="Edit Record" />
+        <Button text="Cancel" onClick={cancelHandler} />
+      </div>
     </form>
   );
 };
 
-export default ExpenseForm;
+export default EditForm;

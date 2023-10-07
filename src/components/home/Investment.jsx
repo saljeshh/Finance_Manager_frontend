@@ -1,8 +1,56 @@
-import React from "react";
-import Card from "../ui/Card";
+import React, { useState, useEffect } from "react";
 import "./Investment.scss";
+import { useAxios } from "../../hooks/useAxios";
 
-const Investment = () => {
+const Investment = ({ accdata, rerun }) => {
+  if (!accdata) {
+    accdata = {
+      investable_balance: 0,
+    };
+  }
+  const axios = useAxios();
+
+  const [current, setCurrent] = useState();
+
+  useEffect(() => {
+    axios
+      .get("/api/investable")
+      .then((res) => {
+        setCurrent(res.data.investable_percent);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const investablepercnetChangeHandler = (e) => {
+    setCurrent(e.target.value);
+    axios
+      .put("/api/investable", {
+        investable_percent: e.target.value,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .put("/api/accounts", {
+        cash: accdata.cash_balance,
+        bank: accdata.bank_balance,
+      })
+      .then((res) => {
+        //console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    rerun(current);
+  };
+
   return (
     <section className="investment boxshadow">
       <div className="investment__upper">
@@ -15,19 +63,23 @@ const Investment = () => {
             className="investment__input"
             name="investamount"
             id="investamount"
+            value={current}
+            onChange={investablepercnetChangeHandler}
           >
             <option value="10">10%</option>
-            <option value="10">20%</option>
-            <option value="10">30%</option>
-            <option value="10">40%</option>
-            <option value="10">50%</option>
-            <option value="10">60%</option>
-            <option value="10">70%</option>
+            <option value="20">20%</option>
+            <option value="30">30%</option>
+            <option value="40">40%</option>
+            <option value="50">50%</option>
+            <option value="60">60%</option>
+            <option value="70">70%</option>
           </select>
         </div>
         <div className="investment__box boxshadow">
-          <h3>Bank</h3>
-          <p>Rs 1000</p>
+          <h3>Amount</h3>
+          <p>
+            Rs {accdata.investable_balance ? accdata.investable_balance : 0}
+          </p>
         </div>
       </div>
     </section>

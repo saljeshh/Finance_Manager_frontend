@@ -25,6 +25,12 @@
     }
   }
 
+  &__buttons {
+    > button {
+      margin-right: 2rem;
+    }
+  }
+
   &__input {
     text-align: center;
     padding: 1.3rem 3rem;

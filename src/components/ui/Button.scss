@@ -9,10 +9,9 @@
   color: $primary__white;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in-out;
 
-  &:hover,
-  &:focus {
+  &:hover {
     border: 1px solid $secondary__black;
     background-color: $secondary__white;
     color: $primary__black;

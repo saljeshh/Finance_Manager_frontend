@@ -27,9 +27,17 @@
     }
 
     h1 {
+      font-size: 2.5rem;
       margin-bottom: 1rem;
     }
   }
+}
+
+.input {
+  width: 90%;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  border: 1px solid $secondary__white;
 }
 
 @media only screen and (max-width: 768px) {
@@ -44,6 +52,10 @@
         font-size: 2rem;
       }
     }
+  }
+
+  .input {
+    padding: 1.5rem 1rem;
   }
 }
 
@@ -60,5 +72,10 @@
         font-size: 1.5rem;
       }
     }
+  }
+
+  .input {
+    font-size: 0.9rem;
+    padding: 1.2rem 2rem;
   }
 }

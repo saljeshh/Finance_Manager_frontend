@@ -5,6 +5,14 @@
   align-items: center;
   margin-bottom: 2rem;
 
+  &__red {
+    color: red;
+  }
+
+  &__green {
+    color: green;
+  }
+
   &__left {
     width: 35%;
   }
@@ -47,7 +55,6 @@
 
     > p:first-child {
       font-weight: bold;
-      color: green;
     }
   }
 }

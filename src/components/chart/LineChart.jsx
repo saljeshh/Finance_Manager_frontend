@@ -34,26 +34,62 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Income",
-      data: [100, 200, 30, 450, 605, 890, 754],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Expense",
-      data: [825, 323, 53, 700, 99, 856, 708],
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
+export function LineChart({ all }) {
+  const groupedIncome = all
+    .filter((item) => item.transaction_type === "income")
+    .reduce((result, item) => {
+      const date = new Date(item.timestamp);
+      const month = date.getMonth() + 1;
+      if (!result[month]) {
+        result[month] = 0;
+      }
+      result[month] += item.amount;
+      return result;
+    }, []);
 
-export function LineChart() {
+  const groupedExpense = all
+    .filter((item) => item.transaction_type === "expense")
+    .reduce((result, item) => {
+      const date = new Date(item.timestamp);
+      const month = date.getMonth();
+      if (!result[month]) {
+        result[month] = 0;
+      }
+      result[month] += item.amount;
+      return result;
+    }, []);
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Income",
+        data: [...groupedIncome],
+        borderColor: "rgba(11, 180, 62, 0.5)",
+        backgroundColor: "rgba(40, 201, 25, 0.5)",
+      },
+      {
+        label: "Expense",
+        data: [...groupedExpense],
+        borderColor: "rgba(235, 21, 21, 0.5)",
+        backgroundColor: "rgba(172, 142, 142, 0.5)",
+      },
+    ],
+  };
   return <Line options={options} data={data} />;
 }

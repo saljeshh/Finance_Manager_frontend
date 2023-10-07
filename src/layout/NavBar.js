@@ -1,18 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NavBar.scss";
 import Auth from "../components/NavBar/Auth";
 import Profile from "../components/NavBar/Profile";
 import { Link } from "react-router-dom";
-import AuthContext from "../context/auth-context";
+import { useAuth } from "../context/auth-context";
 import hamburger from "../assets/icons/hamburger.png";
 import cross from "../assets/icons/cross.png";
 
 const NavBar = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const isAuth = useContext(AuthContext);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [token]);
   const showNavbarItems = () => {
-    setShowMenu(!showMenu);
+    setToggle(!toggle);
   };
 
   return (
@@ -35,7 +44,7 @@ const NavBar = () => {
             </Link>
           </ul>
           <div className="navbar__authentication">
-            {!isAuth ? <Auth /> : <Profile />}
+            {!loggedIn ? <Auth /> : <Profile />}
           </div>
         </div>
 
@@ -43,20 +52,20 @@ const NavBar = () => {
 
         <div
           onClick={showNavbarItems}
-          className={!showMenu ? "navbar__hamburger" : "hidden"}
+          className={toggle ? "navbar__hamburger" : "hidden"}
         >
           <img src={hamburger} alt="=" width="30px" />
         </div>
         <div
           onClick={showNavbarItems}
-          className={!showMenu ? "hidden" : "navbar__hamburger"}
+          className={toggle ? "hidden" : "navbar__hamburger"}
         >
           <img src={cross} alt="=" width="40px" />
         </div>
       </div>
 
       {/* show when hamburger is clicked */}
-      <div className={showMenu ? "navbar__mobile container" : "hidden"}>
+      <div className={!toggle ? "navbar__mobile container" : "hidden"}>
         <ul className="navbar__linksmobile">
           <Link to="/home" className="navbar__link ">
             HOME
@@ -69,7 +78,7 @@ const NavBar = () => {
           </Link>
         </ul>
         <div className="navbar__authenticationmobile">
-          {isAuth ? <Auth /> : <Profile />}
+          {!loggedIn ? <Auth /> : <Profile />}
         </div>
       </div>
     </div>
