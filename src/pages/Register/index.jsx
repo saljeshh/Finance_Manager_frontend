@@ -3,7 +3,7 @@ import "./Register.scss";
 import Button from "../../components/ui/Button";
 import { Link } from "react-router-dom";
 import { axiosWithoutHeader } from "../../api/axios";
-// import { useAxios } from "../../hooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUserName] = useState("");
@@ -14,9 +14,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [country, setCountry] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
-  // axios hook
-  // const axios = useAxios();
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     const payload = {
@@ -31,15 +29,9 @@ const Register = () => {
 
     try {
       const res = await axiosWithoutHeader.post("/register", payload);
-      // const init_investable = await axios.post("/api/investable", {
-      //   investable_percent: 50,
-      // });
-      // const init_account = await axios.post("/api/accounts", {
-      //   cash: 0,
-      //   bank: 0,
-      // });
 
       console.log(res);
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }

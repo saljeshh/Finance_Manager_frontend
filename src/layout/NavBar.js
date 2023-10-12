@@ -32,17 +32,20 @@ const NavBar = () => {
           FINANCE <span>GURU</span>
         </Link>
         <div className="navbar__responsive">
-          <ul className="navbar__links">
-            <Link to="/home" className="navbar__link ">
-              HOME
-            </Link>
-            <Link to="/dashboard" className="navbar__link">
-              DASHBOARD
-            </Link>
-            <Link to="/invest" className="navbar__link">
-              INVEST
-            </Link>
-          </ul>
+          {loggedIn && (
+            <ul className="navbar__links">
+              <Link to="/home" className="navbar__link ">
+                HOME
+              </Link>
+              <Link to="/dashboard" className="navbar__link">
+                DASHBOARD
+              </Link>
+              <Link to="/invest" className="navbar__link">
+                INVEST
+              </Link>
+            </ul>
+          )}
+
           <div className="navbar__authentication">
             {!loggedIn ? <Auth /> : <Profile />}
           </div>

@@ -19,7 +19,7 @@ export const options = {
 
 export function PieChart({ dashData }) {
   const groupedIncomeByCategory = dashData
-    .filter((item) => item.transaction_type === "income")
+    .filter((item) => item.transaction_type === "expense")
     .reduce((result, item) => {
       const category = item.category;
       if (!result[category]) {

@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import Button from "../ui/Button";
 import "./ExpenseForm.scss";
-import { useAxios } from "../../hooks/useAxios";
+import { useTransaction } from "../../context/transactionContext";
 
 const ExpenseForm = () => {
-  // for form data
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [account, setAccount] = useState("");
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
-  const axios = useAxios();
+  const { createTransaction } = useTransaction();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -23,16 +22,25 @@ const ExpenseForm = () => {
       timestamp: new Date(date),
     };
 
-    axios
-      .post("/api/transactions", data)
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
+    if (
+      type == "" ||
+      account == "" ||
+      category == "" ||
+      date == "" ||
+      amount == ""
+    ) {
+      console.log(data);
+      console.log("Error : fields cannt be empty");
+    } else {
+      console.log(data);
+      createTransaction(data);
 
-    setAccount("");
-    setType("");
-    setCategory("");
-    setDate("");
-    setAmount("");
+      setAccount("");
+      setType("");
+      setCategory("");
+      setDate("");
+      setAmount("");
+    }
   };
 
   return (
@@ -45,6 +53,7 @@ const ExpenseForm = () => {
           placeholder="Enter amount.."
           onChange={(e) => setAmount(e.target.value)}
           required
+          value={amount}
         />
         <input
           type="date"
@@ -52,6 +61,7 @@ const ExpenseForm = () => {
           placeholder="Enter date.."
           onChange={(e) => setDate(e.target.value)}
           required
+          value={date}
         />
       </div>
 
@@ -61,8 +71,9 @@ const ExpenseForm = () => {
           name="account"
           id="account"
           className="expenseform__select"
-          onClick={(e) => setAccount(e.target.value)}
-          defaultValue="cash"
+          onChange={(e) => setAccount(e.target.value)}
+          value={account}
+          required
         >
           <option value="cash">Cash</option>
           <option value="bank">Bank</option>
@@ -73,8 +84,9 @@ const ExpenseForm = () => {
           name="type"
           id="type"
           className="expenseform__select"
-          onClick={(e) => setType(e.target.value)}
-          defaultValue="income"
+          onChange={(e) => setType(e.target.value)}
+          required
+          value={type}
         >
           <option value="income">Income</option>
           <option value="expense">Expense</option>
@@ -86,7 +98,9 @@ const ExpenseForm = () => {
             name="income"
             id="income"
             className="expenseform__select"
-            onClick={(e) => setCategory(e.target.value)}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+            value={category}
           >
             <option value="Salary">Salary</option>
             <option value="Pocket Money">Pocket Money</option>
@@ -101,8 +115,9 @@ const ExpenseForm = () => {
             name="expense"
             id="expense"
             className="expenseform__select"
-            onClick={(e) => setCategory(e.target.value)}
+            onChange={(e) => setCategory(e.target.value)}
             required
+            value={category}
           >
             <option value="Food and Cafe">Food and Cafe</option>
             <option value="Investment">Investment</option>

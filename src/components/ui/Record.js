@@ -4,6 +4,7 @@ import edits from "../../assets/icons/edit.png";
 import del from "../../assets/icons/delete.png";
 import "./Record.scss";
 import { useAxios } from "../../hooks/useAxios";
+import { useTransaction } from "../../context/transactionContext";
 
 const Record = ({
   category,
@@ -18,12 +19,10 @@ const Record = ({
   const bindingHandler = () => {
     editMode(amount, transaction_type, category, account_type, date, id);
   };
+  const { deleteTransaction } = useTransaction();
 
   const deleteItemHandler = (transaction_id) => {
-    axios
-      .delete(`/api/transactions/${transaction_id}`)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    deleteTransaction(transaction_id);
   };
 
   return (

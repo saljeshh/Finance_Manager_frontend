@@ -57,6 +57,10 @@
     th {
       text-align: center;
       padding: 1rem 3rem;
+      cursor: pointer;
+    }
+    th:hover {
+      color: $primary__blue;
     }
     td {
       padding: 1rem 0;

@@ -3,18 +3,19 @@ import "./Profile.scss";
 import profile from "../../assets/icons/profile.png";
 import Button from "../../components/ui/Button";
 import LinkHelper from "../../components/ui/LinkHelper";
-
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth-context";
 import { useAxios } from "../../hooks/useAxios";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const { logout, token } = useAuth();
   const [user, setUser] = useState();
   const axios = useAxios();
 
   const logoutHandler = () => {
     logout();
-    window.location.href = "/";
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -24,7 +25,10 @@ const ProfilePage = () => {
         setUser(res.data);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 401) {
+          logout();
+          navigate("/login");
+        }
       });
   }, []);
 

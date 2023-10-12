@@ -54,7 +54,7 @@ export function LineChart({ all }) {
     .filter((item) => item.transaction_type === "income")
     .reduce((result, item) => {
       const date = new Date(item.timestamp);
-      const month = date.getMonth() + 1;
+      const month = date.getMonth();
       if (!result[month]) {
         result[month] = 0;
       }

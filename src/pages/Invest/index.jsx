@@ -1,26 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "./Invest.scss";
-import stock from "../../data/stock";
 import { useAuth } from "../../context/auth-context";
-import Login from "../Login";
 import { useAxios } from "../../hooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
 const Invest = () => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const [stocks, setStocks] = useState([]);
   const [sector, setSector] = useState("Commercial Bank");
   const [investable, setInvestable] = useState();
+  // const [asc, setAsc] = useState(true);
   const axios = useAxios();
+  const navigate = useNavigate();
+
+  // if token then simply dont send to first initial value walal
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
 
   // for stock fetch
   useEffect(() => {
     axios
       .get(`/api/stocks/?search=${sector}`)
       .then((res) => {
-        setStocks(res.data);
+        console.log(stocks);
+        setStocks(res.data ? res.data : []);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 401) {
+          logout();
+          navigate("/login");
+        }
       });
   }, [sector]);
 
@@ -29,10 +41,15 @@ const Invest = () => {
     axios
       .get("/api/accounts")
       .then((res) => {
-        setInvestable(res.data.investable_balance);
+        setInvestable(
+          res.data.investable_balance ? res.data.investable_balance : 0
+        );
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 401) {
+          logout();
+          navigate("/login");
+        }
       });
   }, []);
 
@@ -40,8 +57,68 @@ const Invest = () => {
     setSector(e.target.value);
   };
 
-  if (!token) {
-    window.location.href = "/login";
+  function selectionSortStocks(stocks, type) {
+    let sortedStocks = [...stocks];
+    const n = sortedStocks.length;
+    const sortingState =
+      sortedStocks[0][type] < sortedStocks[1][type] ? true : false;
+
+    for (let i = 0; i < n - 1; i++) {
+      let smallest_index = i;
+
+      for (let j = i + 1; j < n; j++) {
+        let shouldSwap = false;
+
+        switch (type) {
+          case "ltp":
+            shouldSwap = sortingState
+              ? sortedStocks[j].ltp > sortedStocks[smallest_index].ltp
+              : sortedStocks[j].ltp < sortedStocks[smallest_index].ltp;
+            break;
+          case "pe":
+            shouldSwap = sortingState
+              ? sortedStocks[j].pe > sortedStocks[smallest_index].pe
+              : sortedStocks[j].pe < sortedStocks[smallest_index].pe;
+            break;
+          case "pb":
+            shouldSwap = sortingState
+              ? sortedStocks[j].pb > sortedStocks[smallest_index].pb
+              : sortedStocks[j].pb < sortedStocks[smallest_index].pb;
+            break;
+          case "roe":
+            shouldSwap = sortingState
+              ? sortedStocks[j].roe > sortedStocks[smallest_index].roe
+              : sortedStocks[j].roe < sortedStocks[smallest_index].roe;
+            break;
+          case "roa":
+            shouldSwap = sortingState
+              ? sortedStocks[j].roa > sortedStocks[smallest_index].roa
+              : sortedStocks[j].roa < sortedStocks[smallest_index].roa;
+            break;
+          case "quantity":
+            shouldSwap = sortingState
+              ? sortedStocks[j].quantity > sortedStocks[smallest_index].quantity
+              : sortedStocks[j].quantity <
+                sortedStocks[smallest_index].quantity;
+            break;
+          default:
+            break;
+        }
+
+        if (shouldSwap) {
+          smallest_index = j;
+        }
+      }
+
+      // Swap sortedStocks using a single temporary variable
+      if (smallest_index !== i) {
+        const temp = sortedStocks[i];
+        sortedStocks[i] = sortedStocks[smallest_index];
+        sortedStocks[smallest_index] = temp;
+      }
+    }
+
+    return sortedStocks;
   }
 
   return (
@@ -84,13 +161,62 @@ const Invest = () => {
             <thead>
               <tr>
                 <th>Symbol</th>
-                <th>LTP</th>
+                <th
+                  onClick={(e) => {
+                    e.preventDefault();
+                    let newstock = selectionSortStocks(stocks, "ltp") || [];
+                    setStocks(newstock);
+                  }}
+                >
+                  LTP ⇅
+                </th>
                 <th>Sector</th>
-                <th>PB</th>
-                <th>PE</th>
-                <th>ROA</th>
-                <th>ROE</th>
-                <th>QUANTITY PURCHASEABLE</th>
+                <th
+                  onClick={(e) => {
+                    e.preventDefault();
+                    let newstock = selectionSortStocks(stocks, "pb") || [];
+                    setStocks(newstock);
+                  }}
+                >
+                  PB ⇅
+                </th>
+                <th
+                  onClick={(e) => {
+                    e.preventDefault();
+                    let newstock = selectionSortStocks(stocks, "pe") || [];
+                    setStocks(newstock);
+                  }}
+                >
+                  PE ⇅
+                </th>
+                <th
+                  onClick={(e) => {
+                    e.preventDefault();
+                    let newstock = selectionSortStocks(stocks, "roa") || [];
+                    setStocks(newstock);
+                  }}
+                >
+                  ROA ⇅
+                </th>
+                <th
+                  onClick={(e) => {
+                    e.preventDefault();
+                    let newstock = selectionSortStocks(stocks, "roe") || [];
+                    setStocks(newstock);
+                  }}
+                >
+                  ROE ⇅
+                </th>
+                <th
+                  onClick={(e) => {
+                    e.preventDefault();
+                    let newstock =
+                      selectionSortStocks(stocks, "quantity") || [];
+                    setStocks(newstock);
+                  }}
+                >
+                  QUANTITY ⇅
+                </th>
               </tr>
             </thead>
 

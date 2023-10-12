@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.scss";
 import Button from "../../components/ui/Button";
 import image from "../../assets/icons/profile.png";
 import LinkHelper from "../../components/ui/LinkHelper";
 import { axiosWithoutHeader } from "../../api/axios";
 import { useAuth } from "../../context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, logout } = useAuth();
+  const { login, token } = useAuth();
+  const navigate = useNavigate();
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -20,6 +22,7 @@ const Login = () => {
   };
 
   const submitHandler = async (e) => {
+    e.preventDefault();
     const payload = {
       email,
       password,
@@ -28,21 +31,19 @@ const Login = () => {
     try {
       const res = await axiosWithoutHeader.post("/login", payload);
       const access_token = res.data.access_token;
-      const expiry = res.data.token_expiry;
-      localStorage.setItem("tokenExpiry", expiry);
       login(access_token);
-      window.location.href = "/home";
     } catch (error) {
       console.log(error);
     }
 
+    navigate("/register/initialize/default");
     setEmail("");
     setPassword("");
   };
 
   return (
     <div className="login boxshadow">
-      <div className=" login__lo">
+      <form onSubmit={submitHandler} className=" login__lo">
         <h1>LOGIN TO FINANCE GURU</h1>
         <img src={image} alt="" />
         <input
@@ -59,12 +60,12 @@ const Login = () => {
           value={password}
           onChange={passwordChangeHandler}
         />
-        <Button type="submit" text="Log In" onClick={submitHandler} />
+        <Button type="submit" text="Log In" />
 
         <p>Forget Password ?</p>
 
         <LinkHelper to="/register" name="Create an Account?" />
-      </div>
+      </form>
     </div>
   );
 };

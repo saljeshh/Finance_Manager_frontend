@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import Button from "../ui/Button";
 import "./ExpenseForm.scss";
-import { useAxios } from "../../hooks/useAxios";
+import { useTransaction } from "../../context/transactionContext";
 
 const EditForm = ({ binding, cancelHandler }) => {
-  const axios = useAxios();
-  // for form data
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [account, setAccount] = useState("");
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
+  const { editTransaction } = useTransaction();
 
   const amountChangeHandler = (e) => {
     setAmount(e.target.value);
@@ -42,16 +41,15 @@ const EditForm = ({ binding, cancelHandler }) => {
       category: category,
       timestamp: new Date(date).toISOString(),
     };
-    // console.log("data", data);
+    console.log("data", data);
 
-    axios
-      .put(`/api/transactions/${binding.id}`, data)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    editTransaction(binding.id, data);
+
+    setAccount("");
+    setType("");
+    setAmount("");
+    setCategory("");
+    setDate("");
   };
 
   return (
@@ -86,15 +84,14 @@ const EditForm = ({ binding, cancelHandler }) => {
           <option value="bank">Bank</option>
         </select>
 
-        {/* Income or expense */}
         <select
           name="type"
           id="type"
           className="expenseform__select"
           onChange={typeChangeHandler}
         >
-          <option value="Income">Income</option>
-          <option value="Expense">Expense</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
         </select>
 
         {/* category acc to income/expnese */}

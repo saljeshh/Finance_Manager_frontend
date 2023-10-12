@@ -8,31 +8,35 @@ import Investment from "../../components/home/Investment";
 import EditForm from "../../components/home/EditForm";
 import { useAuth } from "../../context/auth-context";
 import { useAxios } from "../../hooks/useAxios";
+import { useNavigate } from "react-router-dom";
+import { useTransaction } from "../../context/transactionContext";
 
 const Home = () => {
+  const navigate = useNavigate();
   const axios = useAxios();
-  const { token } = useAuth();
-  const [accdata, setAccdata] = useState("");
+  const { token, logout } = useAuth();
+  const { accData, getAccountData, transationss } = useTransaction();
 
   const [edit, isEdit] = useState(false);
   const [transaction, setTransaction] = useState([]);
   const [binding, setBinding] = useState({});
-  const [rerun, setRerun] = useState();
-
-  const rerunHandler = (depends) => {
-    setRerun(depends);
-  };
 
   useEffect(() => {
-    axios
-      .get("/api/accounts")
-      .then((res) => {
-        setAccdata(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [rerun]);
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const getAccdata = async () => {
+      const status = await getAccountData();
+
+      if (status === 401) {
+        navigate("/login");
+      }
+    };
+    getAccdata();
+  }, [transationss]);
 
   useEffect(() => {
     axios
@@ -40,8 +44,13 @@ const Home = () => {
       .then((res) => {
         setTransaction(res.data);
       })
-      .catch((e) => console.log(e));
-  }, []);
+      .catch((e) => {
+        if (e.response.status === 401) {
+          logout();
+          navigate("/login");
+        }
+      });
+  }, [transationss]);
 
   // for two way binding for editing
   const editHandler = (amt, transType, category, accType, date, id) => {
@@ -62,22 +71,16 @@ const Home = () => {
     isEdit(false);
   };
 
-  // if not authenticated return to login page
-
-  if (!token) {
-    window.location.href = "/login";
-  }
-
   return (
     <div className="home">
       <div className="home__upper container">
-        <Accounts accdata={accdata} />
-        <TotalBalance accdata={accdata} />
-        <Investment accdata={accdata} rerun={rerunHandler} />
+        <Accounts accdata={accData} />
+        <TotalBalance accdata={accData} />
+        <Investment accdata={accData} />
       </div>
       <div className="home__lower container">
         {!edit ? (
-          <ExpenseForm rerun={rerunHandler} />
+          <ExpenseForm />
         ) : (
           <EditForm binding={binding} cancelHandler={cancelHandler} />
         )}

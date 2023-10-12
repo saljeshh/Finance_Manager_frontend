@@ -1,0 +1,49 @@
+@import "../../App.scss";
+
+.accmodal {
+  &__modal {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__label {
+    font-weight: bold;
+  }
+
+  &__input {
+    padding: 0.5rem;
+    transition: all 0.3s ease-in;
+  }
+
+  &__button {
+    width: 30%;
+    background-color: $primary__blue;
+    color: $primary__white;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+  }
+
+  &__button:hover {
+    width: 30%;
+    background-color: $green;
+    color: $primary__white;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+  }
+
+  &__input:hover,
+  &__input:focus {
+    outline: none;
+    border: 2px solid $green;
+  }
+}

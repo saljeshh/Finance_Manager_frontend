@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Investment.scss";
 import { useAxios } from "../../hooks/useAxios";
+import { useTransaction } from "../../context/transactionContext";
 
-const Investment = ({ accdata, rerun }) => {
+const Investment = ({ accdata }) => {
+  const { transationss, investablepercnetChange } = useTransaction();
+
   if (!accdata) {
     accdata = {
       investable_balance: 0,
@@ -21,7 +24,7 @@ const Investment = ({ accdata, rerun }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [transationss]);
 
   const investablepercnetChangeHandler = (e) => {
     setCurrent(e.target.value);
@@ -30,7 +33,7 @@ const Investment = ({ accdata, rerun }) => {
         investable_percent: e.target.value,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -48,7 +51,7 @@ const Investment = ({ accdata, rerun }) => {
         console.log(error);
       });
 
-    rerun(current);
+    investablepercnetChange();
   };
 
   return (

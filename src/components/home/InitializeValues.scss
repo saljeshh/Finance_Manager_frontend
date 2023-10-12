@@ -1,0 +1,57 @@
+@import "../../App.scss";
+
+.initialize {
+  width: 50rem;
+  padding: 5rem;
+
+  &__btns {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4rem;
+  }
+
+  &__label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  &__input:focus,
+  &__input:hover {
+    border: 2px solid $green;
+    outline: none;
+  }
+
+  &__input {
+    padding: 2rem 0.5rem;
+  }
+
+  &__button {
+    font-size: 1.3rem;
+    display: inline-block;
+    background-color: $primary__blue;
+    padding: 0.8rem 2rem;
+    border-radius: 0.4rem;
+    color: $primary__white;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      border: 1px solid $secondary__black;
+      background-color: $secondary__white;
+      color: $primary__black;
+    }
+  }
+}
