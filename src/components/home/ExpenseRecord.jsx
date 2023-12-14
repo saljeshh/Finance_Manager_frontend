@@ -7,11 +7,11 @@ const ExpenseRecord = ({ record, editMode }) => {
   return (
     <div className="boxshadow expenserecord">
       <p className="expenserecord__title">Records</p>
-      <div className="expenserecord__filters">
+      {/* <div className="expenserecord__filters">
         <Button text="This Week" />
         <Button text="This Year" />
         <Button text="All Records" />
-      </div>
+      </div> */}
       <div className="expenserecord__records">
         {record.map((transaction) => (
           <Record

@@ -64,7 +64,7 @@ const ProfilePage = () => {
         </div>
         <div className="profile__buttons">
           <Button text="Logout" onClick={logoutHandler} />
-          <LinkHelper to="/changepassword" name="Change Password" />
+          {/* <LinkHelper to="/changepassword" name="Change Password" /> */}
         </div>
       </div>
     </div>
